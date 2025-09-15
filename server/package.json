@@ -12,7 +12,7 @@
   "keywords": [
     "back-end"
   ],
-  "author": "JeyZ9",
+  "author": "Natsuda Rongthong",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
