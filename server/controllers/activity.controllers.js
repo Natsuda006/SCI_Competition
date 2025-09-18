@@ -1,9 +1,9 @@
 import { Op, where } from "sequelize";
 import Activity from "../models/activity.model.js";
 
-const activityController = {};
+const activityControllers = {};
 
-activityController.create = async (req, res) => {
+activityControllers.create = async (req, res) => {
     const { name, description, type, level, team_size, date, location, reg_open, reg_close, contact_name, contact_email, contact_phone, status } = req.body;
 
     if (
@@ -54,7 +54,7 @@ activityController.create = async (req, res) => {
     })
 }
 
-activityController.getAll = async (req, res) => {
+activityControllers.getAll = async (req, res) => {
   await Activity.findAll().then((data) => {
     res.send(data);
   }).catch((err) => {
@@ -62,7 +62,7 @@ activityController.getAll = async (req, res) => {
   })
 }
 
-activityController.getById = async(req, res) => {
+activityControllers.getById = async(req, res) => {
   const id = req.params.id
 
   await Activity.findOne({where: {id}}).then((data) => {
@@ -72,7 +72,7 @@ activityController.getById = async(req, res) => {
   })
 }
 
-activityController.update = async (req, res) => {
+activityControllers.update = async (req, res) => {
   const id = req.params.id;
 
   const {
@@ -143,7 +143,7 @@ activityController.update = async (req, res) => {
     });
 }
 
-activityController.delete = async (req, res) => {
+activityControllers.delete = async (req, res) => {
   const id = req.params.id;
   await Activity.destroy({ where: { id } })
     .then((num) => {
@@ -164,7 +164,7 @@ activityController.delete = async (req, res) => {
     });
 }
 
-activityController.search = async (req, res) => {
+activityControllers.search = async (req, res) => {
   try {
     const name = req.query.name;
 
@@ -190,4 +190,4 @@ activityController.search = async (req, res) => {
 
 
 
-export default activityController;
+export default activityControllers;

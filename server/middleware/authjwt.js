@@ -50,8 +50,6 @@ const isModOrAdmin = (req,res,next) => {
     });
 }
 
-const authJwt = { verifyToken ,isAdmin , isModOrAdmin};
-
 const isManager = (req, res, next) => {
     User.findByPk(req.username).then((user) => {
         user.getRoles().then((roles) => {
@@ -67,5 +65,8 @@ const isManager = (req, res, next) => {
     }
     );
 };
+const authJwt = { verifyToken ,isAdmin , isModOrAdmin,isManager};
+
+
 
 export default authJwt;
