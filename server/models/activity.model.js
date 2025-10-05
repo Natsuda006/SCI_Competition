@@ -9,76 +9,70 @@ const Activity = sequelize.define("activity", {
     },
     name: {
         type: DataTypes.STRING,
-       required: true,
- 
+        allowNull: false,
     },
     description: {
         type: DataTypes.STRING,
-        required: true, 
+        allowNull: false,
     },
     type: {
         type: DataTypes.STRING,
-        required: true,
+        allowNull: false,
     },
     level: {
         type: DataTypes.STRING,
-        required: true,
+        allowNull: false,
     },
     team_size: {
         type: DataTypes.INTEGER,
-       required: true,
-        min: 1,
+        allowNull: false,
+        validate: {
+            min: 1,
+        },
     },
     date: {
         type: DataTypes.DATE,
-         required: true,
+        allowNull: false,
     },
     location: {
         type: DataTypes.STRING,
-         required: true,
+        allowNull: false,
     },
     reg_open: {
         type: DataTypes.DATE,
-        requiredl: true,
+        allowNull: false,
     },
     reg_close: {
         type: DataTypes.DATE,
-        required: true,
+        allowNull: false,
     },
     contact_name: {
         type: DataTypes.STRING,
-         required: true,
+        allowNull: false,
     },
     contact_phone: {
         type: DataTypes.STRING,
-         required: true,
+        allowNull: false,
     },
     contact_email: {
         type: DataTypes.STRING,
-        required: true,
-        match:[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,"Please fill a valid email address" ],
+        allowNull: false,
+        validate: {
+            isEmail: true,
+        },
     },
     status: {
         type: DataTypes.STRING,
-        enm:["draft","open","closed","inprogress","completed"],
-        default: "draft",
+        defaultValue: "draft",
     },
-      created_at: {
+    created_at: {
         type: DataTypes.DATE,
-        default: Date.now,
+        defaultValue: DataTypes.NOW,
     },
     update_at: {
         type: DataTypes.DATE,
-        default: Date.now,
+        defaultValue: DataTypes.NOW,
     },
 });
-
-// Activity.sync({ force: false })
-//     .then(() => {
-//         console.log("Activity table created or already exists");
-//     })
-//     .catch((error) => {
-//         console.log("Error creating Activity table", error);
-//     });
 
 export default Activity;
