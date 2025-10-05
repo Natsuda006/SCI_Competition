@@ -1,5 +1,5 @@
 import db from "../models/index.js";
-import config from "../config/auth.config.js"
+import authConfig from "../config/auth.config.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import path from "path";
@@ -134,8 +134,56 @@ const verifyEmail = async (req, res) => {
   }
 };
 
+const signIn = async (req, res) => {
+  const {email, password} = req.body;
+  try {
+  if(!email || !password){
+    return res.status(400).send({message: "Email and Password are required!"});
+  }
+
+  const user = await User.findOne({where: {email}});
+  if(!user){
+    return res.status(404).send({message: "User not found!"});
+  }
+
+  const passwordIsValid = await user.comparePassword(password);
+  if(!passwordIsValid){
+    return res.status(401).send({ message: "Invalid Password!"});
+  }
+
+  if(user.type === "teacher" && !user.isVerified){
+    return res.status(403).send({message: "Please verify your email to activate your account"});
+  }
+
+  const token = jwt.sign({id: user.id}, authConfig.secret, {
+    expiresIn: 24 * 60 * 60 , //86400 = 24 hours
+  });
+
+  // Send the proper response structure
+  res.status(200).send({
+    message: "Login successful!",
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      type: user.type, 
+      ...(user.type === "teacher" && { 
+        isVerified: user.isVerified,
+        phone: user.phone,
+        school: user.school,
+      }),
+    },
+    accessToken: token,
+  });
+} catch (error) {
+  return res.status(500).send({message: error.message || "Some error occurred while signing in user" ,});
+}
+};
+
+
 const authControllers = {
   signUp,
+  signIn,
   verifyEmail,
 };
 
