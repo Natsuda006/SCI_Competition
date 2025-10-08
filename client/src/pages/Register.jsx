@@ -54,7 +54,7 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-xl p-8">
         <h1 className="text-2xl md:text-3xl font-semibold text-center text-gray-800 dark:text-gray-100 mb-6">
-          SIGN UP
+         REGISTER
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -175,7 +175,7 @@ const Register = () => {
               href="/login"
               className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
             >
-              Sign In
+              LOGIN
             </a>
           </p>
         </form>
