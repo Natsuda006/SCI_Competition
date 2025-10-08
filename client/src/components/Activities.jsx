@@ -29,13 +29,14 @@ const Activities = ({ activities }) => {
           />
         ))
       ) : !user ? (
- <div className="flex items-center justify-center min-h-screen">
+<div className="flex justify-center">
   <div className="bg-purple-200 border border-purple-400 text-purple-900 px-6 py-4 rounded-lg shadow-md text-center">
     <span className="text-lg font-medium">
       Please login to see activities.
     </span>
   </div>
 </div>
+
 
 
 
