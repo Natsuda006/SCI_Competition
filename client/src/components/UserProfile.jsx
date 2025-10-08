@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router";
+import AuthServices from "../services/auth.service"; // ✅ import ให้ด้วย
 
 const UserProfile = () => {
-  const { user, logout } = useAuthContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const handleLogOut = (e) => {
-    e.preventDefault();
-    logout();
-    window.location.reload();
+  // ✅ ฟังก์ชัน logout ที่ทำงานได้จริง
+  const handleLogout = () => {
+    AuthServices.logout(); 
+    setOpen(false);       
+    navigate("/login");    
   };
 
   return (
@@ -45,15 +47,11 @@ const UserProfile = () => {
           >
             View Profile
           </button>
+
           <button
             className="btn btn-ghost justify-start normal-case text-left hover:bg-blue-100 dark:hover:bg-blue-600 transition"
-            onClick={() => {
-              setOpen(false);
-              navigate("/settings");
-            }}
+            onClick={handleLogout}
           >
-            
-          
             Logout
           </button>
         </div>
