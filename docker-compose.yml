@@ -9,10 +9,10 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
-    command: nodemon --legacy-watch index.js
+    command:  npm run dev
     restart: always
     environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/app_db
+      - DATABASE_URL=postgres://postgres:/postgres@db:5432/app_db
       - HOST=db
       - USER=postgres
       - PASSWORD=postgres

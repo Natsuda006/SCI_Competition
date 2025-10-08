@@ -3,7 +3,7 @@ import dbConfig from "../config/db.config.js"
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
-  port: dbConfig.DBPORT,
+  port: dbConfig.DB_PORT,
   dialect: dbConfig.dialect,
   logging: false,
   omitNull: true,
