@@ -69,8 +69,8 @@ const Navbar = () => {
  ) : (
 <div className="space-x-2">
   {""}
-<a href="/register" className="btn btn-outline btn-primary" >Sign Up</a>
-<a href="/login" className="btn btn-outline btn-secondary">Sign In</a>
+<a href="/register" className="btn btn-outline btn-primary" >REGISTER</a>
+<a href="/login" className="btn btn-outline btn-secondary">LOGIN</a>
     </div>
   )}
       </div>
