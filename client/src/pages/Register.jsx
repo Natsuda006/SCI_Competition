@@ -5,6 +5,7 @@ import AuthServices from "../services/auth.service";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     type: "teacher",
     name: "",
@@ -21,8 +22,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const userData = await AuthServices.register(formData);
+      console.log("Register response:", userData);
 
       Swal.fire({
         icon: "success",
@@ -34,13 +37,16 @@ const Register = () => {
         timer: 1500,
       });
 
-      navigate("/login"); 
+      navigate("/login");
     } catch (err) {
+      console.error("Register error:", err);
       Swal.fire({
         icon: "error",
         title: "Sign Up failed",
         text: err?.message || "Something went wrong",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -153,9 +159,14 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full py-2 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold transition-colors"
+            disabled={loading}
+            className={`w-full py-2 px-4 rounded-lg ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+            } text-white font-semibold transition-colors`}
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
 
           <p className="text-center text-gray-600 dark:text-gray-300 mt-4">
